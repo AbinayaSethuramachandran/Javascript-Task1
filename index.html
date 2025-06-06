@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Task 1 - Form Validation</title>
+</head>
+<body>
+<h2>Registration Form</h2>
+<table>
+<form id="registrationForm">
+
+<td>
+<tr><label>Name:</label> </tr>
+<tr><input type="text" id="name" /><span id="nameError" style="color:red;"></tr></span><br><br>
+</td>
+
+<td>
+<tr><label>Email:</label> </tr>
+<tr><input type="text" id="email" /><span id="emailError" style="color:red;"></tr></span><br><br>
+</td>
+
+<td>
+<tr><label>Password:</label></tr>
+<tr><input type="password" id="password" /><span id="passwordError" style="color:red;"></tr></span><br><br>
+</td>
+<button type="submit" id="submitBtn" disabled>Submit</button>
+
+</form>
+</table>
+
+
+<style>
+    body{
+        background-color:mediumpurple ;
+        color: black;
+        font-family: Georgia, 'Times New Roman', Times, serif
+    }
+
+    #submitBtn{
+        border: solid black 2px;
+        border-radius: 5px;
+    }
+    #submitBtn:hover{
+        background-color: indigo;
+        cursor: pointer;
+        font-size: larger;
+    }
+</style>
+
+
+
+
+
+
+
+<script>
+const form = document.getElementById('registrationForm');
+const nameInput = document.getElementById('name');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const submitBtn = document.getElementById('submitBtn');
+
+function validateForm() {
+let isValid = true;
+
+// Validate Name
+if (nameInput.value.trim() === "") {
+document.getElementById('nameError').textContent = " Name is required.";
+isValid = false;
+} else {
+document.getElementById('nameError').textContent = "";
+}
+
+// Validate Email
+const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+if (!emailPattern.test(emailInput.value.trim())) {
+document.getElementById('emailError').textContent = " Invalid email.";
+isValid = false;
+} else {
+document.getElementById('emailError').textContent = "";
+}
+
+// Validate Password
+if (passwordInput.value.length < 6) {
+document.getElementById('passwordError').textContent = " Min 6 characters.";
+isValid = false;
+} else {
+document.getElementById('passwordError').textContent = "";
+}
+
+submitBtn.disabled = !isValid;
+}
+
+// Run validation on each input
+nameInput.addEventListener('input', validateForm);
+emailInput.addEventListener('input', validateForm);
+passwordInput.addEventListener('input', validateForm);
+
+// Prevent default submit for demo
+form.addEventListener('submit', function(e) {
+e.preventDefault();
+alert("Form submitted!!!");
+});
+</script>
+</body>
+</html>
